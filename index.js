@@ -1,5 +1,6 @@
 const literateSimulation = require('./literate')
 const insightfulSimulation = require('./insightful')
+const alteredSimulation = require('./altered')
 
 const TOTAL_GAMES_COUNT = 27e4
 const TOTAL_DOORS_COUNT = 100
@@ -22,18 +23,32 @@ const calculateWeightedResults = (runSimulation,
     return totalResults.map(result => 100 * Math.round(result * PRECISION / TOTAL_GAMES_COUNT) / PRECISION)
 }
 
-console.log('Literate Simulation')
-const literateSimulationResults = calculateWeightedResults(literateSimulation,
+const printSimulationResults = (
+    simulationTitle,
+    simulation,
     TOTAL_GAMES_COUNT,
-    TOTAL_DOORS_COUNT)
-console.log(`Same decision won: ${literateSimulationResults[0]}%`)
-console.log(`Changed decision won: ${literateSimulationResults[1]}%`)
-console.log(`Always random decision won: ${literateSimulationResults[2]}%`)
+    TOTAL_DOORS_COUNT) => {
+    console.log('\n', simulationTitle)
+    const simulationResults = calculateWeightedResults(simulation,
+        TOTAL_GAMES_COUNT,
+        TOTAL_DOORS_COUNT)
+    console.log(`Same decision won: ${simulationResults[0]}%`)
+    console.log(`Changed decision won: ${simulationResults[1]}%`)
+    console.log(`Always random decision won: ${simulationResults[2]}%`)
+}
 
-console.log('\nInsightful Simulation')
-const insightfulSimulationResults = calculateWeightedResults(insightfulSimulation,
+printSimulationResults(
+    'Literate Simulation',
+    literateSimulation,
     TOTAL_GAMES_COUNT,
     TOTAL_DOORS_COUNT)
-console.log(`Same decision won: ${insightfulSimulationResults[0]}%`)
-console.log(`Changed decision won: ${insightfulSimulationResults[1]}%`)
-console.log(`Always random decision won: ${insightfulSimulationResults[2]}%`)
+printSimulationResults(
+    'Insightful Simulation',
+    insightfulSimulation,
+    TOTAL_GAMES_COUNT,
+    TOTAL_DOORS_COUNT)
+printSimulationResults(
+    'Altered Simulation',
+    alteredSimulation,
+    TOTAL_GAMES_COUNT,
+    TOTAL_DOORS_COUNT)

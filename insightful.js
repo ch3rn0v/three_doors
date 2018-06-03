@@ -1,6 +1,10 @@
+const {
+    getBoundedRandom,
+    getRandomArrayElement
+} = require('./utils')
+
 module.exports = (totalDoorsCount) => {
     const MAX = totalDoorsCount - 1
-    const getBoundedRandom = (max) => Math.round(Math.random() * max)
 
     // STEP ONE
     // - Doors and prize
@@ -12,9 +16,7 @@ module.exports = (totalDoorsCount) => {
     // STEP TWO
     // - Player's Choice
     const decisivePlayerChoiceStepTwo = playerChoiceStepOne
-    const alwaysRandomChoice = [-1, prizeDoor][
-        getBoundedRandom(1)
-    ]
+    const alwaysRandomChoice = getRandomArrayElement([-1, prizeDoor])
     
     return [
         decisivePlayerChoiceStepTwo === prizeDoor,

@@ -1,13 +1,11 @@
+const {
+    getBoundedRandom,
+    getRandomArrayElement,
+    generateDoors
+} = require('./utils')
+
 module.exports = (totalDoorsCount) => {
     const MAX = totalDoorsCount - 1
-    const getBoundedRandom = (max) => Math.round(Math.random() * max)
-    const generateDoors = (totalDoorsCount) => {
-        let doors = []
-        for (let i = 0; i <= totalDoorsCount; i++) {
-            doors.push(i)
-        }
-        return doors
-    }
 
     // STEP ONE
     // - Doors and prize
@@ -28,9 +26,7 @@ module.exports = (totalDoorsCount) => {
     const decisivePlayerChoiceStepTwo = playerChoiceStepOne
     const undecisivePlayerChoiceStepTwo = remainingDoors
         .filter(d => d != playerChoiceStepOne)[0]
-    const alwaysRandomChoice = remainingDoors[
-        getBoundedRandom(remainingDoors.length - 1)
-    ]
+    const alwaysRandomChoice = getRandomArrayElement(remainingDoors)
 
     return [
         decisivePlayerChoiceStepTwo === prizeDoor,

@@ -4,16 +4,14 @@
 // (Originally the door with the prize and player's chosen
 // door are left closed).
 
+const {
+    getBoundedRandom,
+    getRandomArrayElement,
+    generateDoors
+} = require('./utils')
+
 module.exports = (totalDoorsCount) => {
     const MAX = totalDoorsCount - 1
-    const getBoundedRandom = (max) => Math.round(Math.random() * max)
-    const generateDoors = (totalDoorsCount) => {
-        let doors = []
-        for (let i = 0; i <= totalDoorsCount; i++) {
-            doors.push(i)
-        }
-        return doors
-    }
 
     // STEP ONE
     // - Doors and prize
@@ -27,17 +25,13 @@ module.exports = (totalDoorsCount) => {
 
     // STEP TWO
     // - Doors
-    const remainingDoors = allDoors
-        .filter(d => !openedNonPrizeDoors.includes(d))
-    remainingDoors.push(openedNonPrizeDoors[getBoundedRandom(openedNonPrizeDoors.length-1)])
+    const remainingDoors = [ prizeDoor, getRandomArrayElement(openedNonPrizeDoors) ]
 
     // - Player's Choice
-    const undecisivePlayerChoiceStepTwo = remainingDoors
-        .filter(d => d != playerChoiceStepOne)[getBoundedRandom(remainingDoors.length-1)]
-    const decisivePlayerChoiceStepTwo = remainingDoors.includes(playerChoiceStepOne) ? playerChoiceStepOne : remainingDoors[getBoundedRandom(remainingDoors.length-1)]
-    const alwaysRandomChoice = remainingDoors[
-        getBoundedRandom(remainingDoors.length - 1)
-    ]
+    const undecisivePlayerChoiceStepTwo = getRandomArrayElement(
+        remainingDoors.filter(d => d != playerChoiceStepOne))
+    const decisivePlayerChoiceStepTwo = remainingDoors.includes(playerChoiceStepOne) ? playerChoiceStepOne : getRandomArrayElement(remainingDoors)
+    const alwaysRandomChoice = getRandomArrayElement(remainingDoors)
 
     return [
         decisivePlayerChoiceStepTwo === prizeDoor,

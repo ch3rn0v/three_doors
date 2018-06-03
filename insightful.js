@@ -12,7 +12,13 @@ module.exports = (totalDoorsCount) => {
     // STEP TWO
     // - Player's Choice
     const decisivePlayerChoiceStepTwo = playerChoiceStepOne
+    const alwaysRandomChoice = [-1, prizeDoor][
+        getBoundedRandom(1)
+    ]
     
-    return [ decisivePlayerChoiceStepTwo === prizeDoor,
-        decisivePlayerChoiceStepTwo !== prizeDoor ]
+    return [
+        decisivePlayerChoiceStepTwo === prizeDoor,
+        decisivePlayerChoiceStepTwo !== prizeDoor,
+        alwaysRandomChoice === prizeDoor
+     ]
 }

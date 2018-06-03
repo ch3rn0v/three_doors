@@ -28,7 +28,13 @@ module.exports = (totalDoorsCount) => {
     const decisivePlayerChoiceStepTwo = playerChoiceStepOne
     const undecisivePlayerChoiceStepTwo = remainingDoors
         .filter(d => d != playerChoiceStepOne)[0]
+    const alwaysRandomChoice = remainingDoors[
+        getBoundedRandom(remainingDoors.length - 1)
+    ]
 
-    return [ decisivePlayerChoiceStepTwo === prizeDoor,
-        undecisivePlayerChoiceStepTwo === prizeDoor ]
+    return [
+        decisivePlayerChoiceStepTwo === prizeDoor,
+        undecisivePlayerChoiceStepTwo === prizeDoor,
+        alwaysRandomChoice === prizeDoor
+    ]
 }
